@@ -1,7 +1,7 @@
 import React from 'react'
 import Product from './components/Product'
 import Header from './components/Header'
-import { fetchProducts } from '@/Service'
+import { fetchProducts } from '@/service'
 import Head from 'next/head'
 
 export default async function Home() {
