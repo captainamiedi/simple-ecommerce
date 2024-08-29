@@ -14,11 +14,11 @@ const Header: React.FC = () => {
           E-Commerce
         </Link>
         <div className="flex space-x-4">
-          <p className="flex items-center">
+          <p className="flex items-center" data-testid="cart-items">
             <span className="mr-2">Items:</span>
             <span className="font-semibold">{totalQuantity}</span>
           </p>
-          <p className="flex items-center">
+          <p className="flex items-center" data-testid="cart-total">
             <span className="mr-2">Total:</span>
             <span className="font-semibold">${totalPrice.toFixed(2)}</span>
           </p>

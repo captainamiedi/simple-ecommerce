@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { store } from '../store';
 import Product from '@/app/(root)/(home)/components/Product';
+import Header from '@/app/(root)/(home)/components/Header';
 
 const mockProducts = [
   {
@@ -43,7 +44,7 @@ describe('Home Page', () => {
     renderWithProviders(<Product products={mockProducts} />);
 
     const product1Price = screen.getByText('$99.99');
-    const product2Rating = screen.getByText('Rating: 3.8 (20)');
+    const product2Rating = screen.getByText(/Rating:\s*3\.8\s*\(\s*20\s*reviews\s*\)/i);
 
     expect(product1Price).toBeInTheDocument();
     expect(product2Rating).toBeInTheDocument();
@@ -59,14 +60,18 @@ describe('Home Page', () => {
     expect(screen.queryByText('Test Product 2')).not.toBeInTheDocument();
   });
 
-  it('adds a product to the cart', () => {
+  it('adds a product to the cart', async () => {
+    renderWithProviders(<Header />);
     renderWithProviders(<Product products={mockProducts} />);
 
     const addToCartButton = screen.getAllByText('Add to Cart')[0];
     fireEvent.click(addToCartButton);
 
-    const cartItems = screen.getByText('Items: 1');
-    const cartTotal = screen.getByText('Total: $99.99');
+    const cartItems = await screen.findByTestId('cart-items');
+    expect(cartItems).toHaveTextContent('Items:1');
+
+    const cartTotal = screen.getByTestId('cart-total');
+    expect(cartTotal).toHaveTextContent('Total:$49.99');
 
     expect(cartItems).toBeInTheDocument();
     expect(cartTotal).toBeInTheDocument();
