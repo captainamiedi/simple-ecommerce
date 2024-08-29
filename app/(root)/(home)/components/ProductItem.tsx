@@ -11,7 +11,7 @@ export default function ProductItem({ product, addToCart }: Readonly<ProductItem
 
   return (
     <div className="border p-4 rounded flex flex-col h-full">
-      <div className="lg:w-[248px] lg:h-[218px] rounded-[12px] overflow-hidden">
+      <div className="lg:max-w-[248px] lg:h-[218px] rounded-[12px] overflow-hidden">
         <Image 
           src={product.image} 
           alt={product.title} 
